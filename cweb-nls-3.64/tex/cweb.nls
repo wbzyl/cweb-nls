@@ -1,0 +1,8 @@
+# This file belongs to the CWEB-NLS package.
+#
+# Copyright (C) 2001 Wlodek Bzyl
+
+
+% LANGUAGE  FORMAT  TCX OPTION
+
+  pl_PL     mex    -translate-file=il2-pl

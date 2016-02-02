@@ -1,0 +1,97 @@
+---------------------------------------------------------------------------
+$RCSfile: README,v $     $Revision: 11 $     $Date: 2003/09/24 20:53:43 $
+---------------------------------------------------------------------------
+
+      The  CWEB-NLS  System  of  Literate  Programming  for  C
+
+   The CWEB-NLS provides change files to be applied to literate programs 
+`cweave.w' and `ctangle.w' from the CWEB package (version 3.43)
+by Silvio Levy and Donald E. Knuth.
+   The main purpose of the CWEB-NLS change files is to add national
+language support to `cweave' and `ctangle' making them usable to literate
+programmers who want to communicate in languages other than English.
+Additionally, changed programs use the path searching mechanism which
+is provided by `Kpathsea' library.
+   To compile, programs require the GNU `gettext' library and C library
+supporting locales. For example, they were successfully compiled by 
+the author on RedHat, Debian and Slackware installations of the GNU Linux.
+   Currently, only the Polish language is supported. For typesetting Polish
+TeX sources, CWB-NLS use TCX reencoding mechanism which is provided by Web2C.
+
+Please send comments, suggestions, etc. to <matwb@univ.gda.pl>.
+---------------------------------------------------------------------------
+
+The CWEB-NLS programs are distributed WITHOUT ANY WARRANTY, 
+express or implied.
+
+Copyright (C) 1998 W{\l}odek Bzyl
+
+Permission is granted to make and distribute verbatim copies of this
+document provided that the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+document under the conditions for verbatim copying, provided that the
+entire resulting derived work is given a different name and distributed
+under the terms of a permission notice identical to this one.
+---------------------------------------------------------------------------
+
+
+THE CONTENTS OF THE `CWEB-NLS' PACKAGE
+
+
+This directory contains the following files:
+
+   README      -- this file
+   INSTALL 
+   Makefile
+   com-sort.ch -- implements multilingual sorting mechanism
+   cw-sort.ch     (uses locales)
+   com-msg.ch  -- implements support for multilingual message catalogs
+   ct-msg.ch      (uses GNU gettext library)
+   cw-msg.ch   
+   com-ban.ch  -- changes limbo and banner line; hopefully, only these
+   ct-ban.ch      files should be changed when new CWEB will appear
+   cw-ban.ch   
+   com-kpse.ch -- implements path searching mechanism which Kpathsea
+   ct-kpse.ch     library provides (requires extension to the source 
+   cw-kpse.ch     code of Kpathsea, see ../kpathsea-cweb)
+        
+The subdirectory `tex' contains the following files:
+
+   Makefile
+   cweb-nls.tex -- the driver macro file used when creating localized 
+                   macro files
+   cweb-nls.msg -- template for messages to be translated
+   template.tex -- `localized' macro file
+   cweb.map     -- maps language name onto format and tcx file names
+   cwebmac.tex  -- a copy of the file from CWEB (for convenience)
+   cweb-c.tex   -- extra macros
+   pl_PL.msg    -- Polish translations of CWEB messages
+   pl_PL.def    -- extra macros for the Polish language
+
+The subdirectory `po' contains the following files:
+
+   Makefile
+   cweb-nls.po -- `portable object' file with English messages
+		  to be translated
+   pl_PL.po    -- Polish translations of English messages
+
+The subdirectory `tests/pl_PL' contains the following files:
+
+   Makefile
+   test.w      -- tests if sorting according to Polish locale works
+   test_ok.idx -- index sorted on the author machine
+   test_ok.scn -- section names sorted on the author machine
+   coll_ok.tab -- collating tables for Polish language
+
+The subdirectory `../examples/pl_PL' contains simple examples of 
+literate programs written in Polish:
+
+   hello.w     -- traditional `hello world' program
+   sample.w    -- generating a random sample of integers
+   fw.w        -- counts word frequency
+   palindrom.w -- checks if a word is a palindrome (includes all
+                  palindromes found in the English `ispell' dictionary)
+
+and `Makefile' which makes compilation easier.

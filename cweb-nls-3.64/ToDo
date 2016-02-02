@@ -1,0 +1,27 @@
+Makefiles in directories:
+	  tex & po
+
+Makefile -- dodac obsluge Makefile's z katalogow tex & po
+
+Co zrobic z locales: en_US v. C -- 
+  poki co te same makra texowe sa trzymane w katalogach C & en_US
+  byc moze makra z katalogu C powinny czytac ../en_US ?
+  na odwrot? jak bedzie bardziej robust?
+
+£amanie napisów na znakach odstêpu.
+
+  Poni¿sze makra nie s± wystarczaj±co `robust': nie dzia³aj±
+  z `wordtest.w' oraz z makrami dla pdf-ów.
+
+  % Knuth's macros borrowed from `advent.w'
+  % Long strings to be broken only at newlines.
+  \def\fixnewline{\BS\fxnl}
+  \def\fxnl#1{\ifx#1\kern\let\next\kludge\else\if\noexpand#1n\let\next\newln
+	      \else\def\next{\char`#1}\fi\fi\next}
+  \def\kludge.05em{\aftergroup\kluj}
+  \def\kluj\)\.#1{\.{\fxnl#1}}
+  \def\newln{n\egroup\discretionary{\hbox{\tentex\BS}}{}{}\hbox\bgroup\ttmode}
+  \def\ttmode{\tentex \let\\=\BS \let\{=\LB \let\}=\RB \let\~=\TL \let\ =\SP 
+    \let\_=\UL \let\&=\AM \let\^=\CF \let\\=\fixnewline}
+  \def\.#1{\leavevmode\hbox{\ttmode#1\kern.05em}}
+  \def\){{\tentex\kern-.05em}}

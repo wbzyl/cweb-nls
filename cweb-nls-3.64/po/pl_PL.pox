@@ -1,0 +1,578 @@
+# This file belongs to the CWEB-NLS package.
+#
+# Copyright (C) 2003 Wlodek Bzyl
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CWEB-NLS 3.63\n"
+"POT-Creation-Date: 2003-01-11 00:38+0100\n"
+"PO-Revision-Date: 2001-10-04 14:31+02:00\n"
+"Last-Translator: Wlodek Bzyl <matwb@univ.gda.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: ISO-8859-2\n"
+
+#: com-nls.w:115
+msgid "! Include file name too long"
+msgstr "! Za d³uga nazwa pliku w³±czanego"
+
+#: com-nls.w:155
+msgid "! This can't happen: "
+msgstr "! To nie mog³o siê wydarzyæ: "
+
+#: com-nls.w:1518 com-nls.w:1523
+msgid "! Cannot open output file "
+msgstr "! Nie mogê otworzyæ pliku wyj¶ciowego "
+
+#: com-nls.w:293
+msgid "! Input line too long"
+msgstr "! Za d³ugi wiersz na wej¶ciu"
+
+#: com-nls.w:384
+msgid "! Missing @x in change file"
+msgstr "! Brak @x w pliku zmian"
+
+#: com-nls.w:395
+msgid "! Change file ended after @x"
+msgstr "! Plik zmian skoñczy³ siê po @x"
+
+#: com-nls.w:443
+msgid "! Change file ended before @y"
+msgstr "! Plik zmian skoñczy³ sie przed @y"
+
+#: com-nls.w:469
+msgid "! Where is the matching @y?"
+msgstr "! Gdzie jest odpowiadaj±ce @y?"
+
+#: com-nls.w:475
+#, c-format
+msgid ""
+"\n"
+"! Hmm... %d "
+msgstr ""
+"\n"
+"! Hmm... %d "
+
+#: com-nls.w:476
+msgid "of the preceding lines failed to match"
+msgstr "poprzedzaj±cych wierszy przesta³o odpowiadaæ"
+
+#: com-nls.w:457
+msgid "! CWEB file ended during a change"
+msgstr "! Plik CWEB-NLS skoñczy³ sie w trakcie wykonywania zamiany"
+
+#: com-nls.w:509
+msgid "! Cannot open input file "
+msgstr "! Nie mogê otworzyæ pliku wej¶ciowego "
+
+#: com-nls.w:516
+msgid "! Cannot open change file "
+msgstr "! Nie mogê otworzyæ pliku zmian "
+
+#: com-nls.w:667
+msgid "! Where is the matching @z?"
+msgstr "! Gdzie jest odpowiadaj±ce @z?"
+
+#: com-nls.w:555
+msgid "! Include file name not given"
+msgstr "! Nie podano nazwy pliku w³±czanego"
+
+#: com-nls.w:560
+msgid "! Too many nested includes"
+msgstr "! Za wiele zagnie¿dzonych w³±czeñ"
+
+#: com-nls.w:628
+msgid "! Cannot open include file"
+msgstr "! Nie mogê otworzyæ pliku w³±czanego"
+
+#: com-nls.w:687
+msgid "! Change file entry did not match"
+msgstr "! Zapis z pliku zmian nie pokrywa siê"
+
+#: com-nls.w:818 com-nls.w:982 com-nls.w:1015
+msgid "byte memory"
+msgstr "pamiêæ na ³añcuchy znaków"
+
+#: com-nls.w:819 com-nls.w:983 com-nls.w:1010
+msgid "name"
+msgstr "nazwy"
+
+#: com-nls.w:1089
+msgid ""
+"\n"
+"! New name is a prefix of <"
+msgstr ""
+"\n"
+"! Nowa nazwa jest przedrostkiem <"
+
+#: com-nls.w:1101
+msgid ""
+"\n"
+"! New name extends <"
+msgstr ""
+"\n"
+"! Nowa nazwa jest przed³u¿eniem <"
+
+#: com-nls.w:1107
+msgid ""
+"\n"
+"! Section name incompatible with <"
+msgstr ""
+"\n"
+"! Nazwa sekcji jest niezgodna z <"
+
+#: com-nls.w:1110
+msgid ""
+">,\n"
+" which abbreviates <"
+msgstr ""
+">,\n"
+" która skraca <"
+
+#: com-nls.w:1232
+#, c-format
+msgid ". (l. %d of change file)\n"
+msgstr ". (l. %d pliku zmian)\n"
+
+#: com-nls.w:1233
+#, c-format
+msgid ". (l. %d)\n"
+msgstr ". (l. %d)\n"
+
+#: com-nls.w:1234
+#, c-format
+msgid ". (l. %d of include file %s)\n"
+msgstr ". (l. %d pliku w³±czanego %s)\n"
+
+#: com-nls.w:1277
+msgid "(No errors were found.)\n"
+msgstr "(¯adnych b³êdów nie znaleziono.)\n"
+
+#: com-nls.w:1279
+msgid "(Did you see the warning message above?)\n"
+msgstr "(Czy zauwa¿y³e¶ powy¿sze ostrze¿enie?)\n"
+
+#: com-nls.w:1281
+msgid "(Pardon me, but I think I spotted something wrong.)\n"
+msgstr "(Przepraszam, chyba co¶ posz³o nie tak.)\n"
+
+#: com-nls.w:1282
+msgid "(That was a fatal error, my friend.)\n"
+msgstr "(Ten b³±d by³ krytyczny.)\n"
+
+#: com-nls.w:1309
+#, c-format
+msgid ""
+"\n"
+"! Sorry, `%s' capacity exceeded"
+msgstr ""
+"\n"
+"! Zabrak³o pamiêci na %s"
+
+#: com-nls.w:1492
+msgid "! Usage: ct [options] webfile[.w] [{changefile[.ch]|-} [outfile[.c]]]\n"
+msgstr "! U¿ycie: ct [opcje] webfile[.w] [{changefile[.ch]|-} [outfile[.c]]]\n"
+
+#: com-nls.w:1496
+msgid ""
+"! Usage: cw [options] webfile[.w] [{changefile[.ch]|-} [outfile[.tex]]]\n"
+msgstr ""
+"! U¿ycie: cw [opcje] webfile[.w] [{changefile[.ch]|-} [outfile[.tex]]]\n"
+
+#: com-nls.w:1500
+msgid "! Filename too long\n"
+msgstr "! Za d³uga nazwa pliku\n"
+
+#: cw-nls.w:81
+msgid "This is CWEAVE-NLS (Version 3.64k)\n"
+msgstr "To jest CWEAVE-NLS (Wersja 3.64k)\n"
+
+#: cw-nls.w:199
+msgid "cross-reference"
+msgstr "odsy³acz"
+
+#: cw-nls.w:259 cw-nls.w:3249 cw-nls.w:3333
+msgid "token"
+msgstr "token"
+
+#: cw-nls.w:1523
+#, c-format
+msgid "! Incomplete line for language `%s' in %s\n"
+msgstr "! Niedokoñczony wiersz dla jêzyka `%s' w %s\n"
+
+#: cw-nls.w:1351
+msgid "! Missing left identifier of @s"
+msgstr "! Brak lewego identyfikatora w definicji formatu @s"
+
+#: cw-nls.w:1356
+msgid "! Missing right identifier of @s"
+msgstr "! Brak prawego identyfikatora w definicji formatu @s"
+
+#: cw-nls.w:988 ct-nls.w:1034
+msgid "! String didn't end"
+msgstr "! Nie zakoñczony napis"
+
+#: cw-nls.w:992 ct-nls.w:1038
+msgid "! Input ended in middle of string"
+msgstr "! Wej¶cie skoñczy³o siê w trakcie czytania napisu"
+
+#: cw-nls.w:1007 ct-nls.w:1056
+msgid ""
+"\n"
+"! String too long: "
+msgstr ""
+"\n"
+"! Za d³ugi napis: "
+
+#: cw-nls.w:1022 cw-nls.w:1263 ct-nls.w:1072
+msgid "! Use @l in limbo only"
+msgstr "! @l mo¿e byæ u¿yte tylko w `limbo'"
+
+#: cw-nls.w:1061 ct-nls.w:1140
+msgid "! Input ended in section name"
+msgstr "! Wej¶cie skoñczy³o siê w nazwie sekcji"
+
+#: cw-nls.w:1088 ct-nls.w:1167
+msgid "! Section name didn't end"
+msgstr "! Nie zakoñczona nazwa sekcji"
+
+#: cw-nls.w:1092
+msgid "! Control codes are forbidden in section name"
+msgstr "! Kody kontrolne s± zabronione w nazwach sekcji"
+
+#: cw-nls.w:1074 ct-nls.w:1153
+msgid ""
+"\n"
+"! Section name too long: "
+msgstr ""
+"\n"
+"! Za d³uga nazwa sekcji: "
+
+#: cw-nls.w:1131 ct-nls.w:1185
+msgid "! Verbatim string didn't end"
+msgstr "! Nie zakoñczony napis `verbatim'"
+
+#: cw-nls.w:1112
+msgid "! Control text didn't end"
+msgstr "! Nie zakoñczony tekst kontrolny"
+
+#: cw-nls.w:1118
+msgid "! Control codes are forbidden in control text"
+msgstr "! Kody steruj±ce s± zabronione w tekstach kontrolnych"
+
+#: cw-nls.w:1171
+msgid "section number"
+msgstr "numer sekcji"
+
+#: cw-nls.w:1409
+msgid ""
+"\n"
+"! Never defined: <"
+msgstr ""
+"\n"
+"! Nigdzie nie zdefiniowana sekcja: <"
+
+#: cw-nls.w:1414
+msgid ""
+"\n"
+"! Never used: <"
+msgstr ""
+"\n"
+"! Nigdzie nie u¿yta sekcja: <"
+
+#: cw-nls.w:1613
+#, c-format
+msgid ""
+"\n"
+"! Line had to be broken (output l. %d):\n"
+msgstr ""
+"\n"
+"! Linia musia³a byæ z³amana (wyj¶cie l. %d):\n"
+
+#: cw-nls.w:1689 ct-nls.w:1518
+msgid "! Double @ should be used in limbo"
+msgstr "! Podwójny znak @ powinien byæ u¿yty w `limbo'"
+
+#: cw-nls.w:1746 ct-nls.w:867
+msgid "! Input ended in mid-comment"
+msgstr "! Wej¶cie skoñczy³o siê w trakcie czytania komentarza"
+
+#: cw-nls.w:1752 cw-nls.w:1780
+msgid "! Missing } in comment"
+msgstr "! Brak znaku } w komentarzu"
+
+#: cw-nls.w:1788
+msgid "! Illegal use of @ in comment"
+msgstr "! Niedozwolone u¿ycie @ w komentarzu"
+
+#: cw-nls.w:1768
+msgid "! Extra } in comment"
+msgstr "! Dodatkowy znak } w komentarzu"
+
+#: cw-nls.w:2606
+msgid "find_first_ident"
+msgstr "find_first_ident"
+
+#: cw-nls.w:3350
+#, c-format
+msgid ""
+"\n"
+"Tracing after l. %d:\n"
+msgstr ""
+"\n"
+"¦ledzenie po l. %d\n"
+
+#: cw-nls.w:3253
+msgid "text"
+msgstr "tekst"
+
+#: cw-nls.w:3340
+#, c-format
+msgid ""
+"\n"
+"Irreducible scrap sequence in section %d:"
+msgstr ""
+"\n"
+"Nieredukowalny ci±g wycinków w sekcji %d:"
+
+#: cw-nls.w:3478
+msgid "scrap/token/text"
+msgstr "wycinek/token/tekst"
+
+#: cw-nls.w:3563
+msgid "! Double @ should be used in strings"
+msgstr "! Podwójny znak @ powinien byæ u¿yty w napisach"
+
+#: cw-nls.w:3641
+msgid "! Missing '|' after C text"
+msgstr "! Brak `|' za kodem w C"
+
+#: cw-nls.w:3774
+msgid "stack"
+msgstr "stos"
+
+#: cw-nls.w:4089
+msgid ""
+"\n"
+"! Illegal control code in section name: <"
+msgstr ""
+"\n"
+"! Niedozwolony kod steruj±cy w nazwie sekcji: <"
+
+#: cw-nls.w:4104
+msgid ""
+"\n"
+"! C text in section name didn't end: <"
+msgstr ""
+"\n"
+"! Nie zakoñczony kod C w nazwie sekcji: <"
+
+#: cw-nls.w:4125 cw-nls.w:4117
+msgid "buffer"
+msgstr "bufor"
+
+#: cw-nls.w:4142
+msgid ""
+"\n"
+"Writing the output file..."
+msgstr ""
+"\n"
+"Wynik zapisujê do pliku..."
+
+#: cw-nls.w:4225
+msgid "! TeX string should be in C text only"
+msgstr "! Napis TeX-owy mo¿e wyst±piæ tylko w kodzie C"
+
+#: cw-nls.w:4231
+msgid "! You can't do that in TeX text"
+msgstr "! Nie mo¿na tego zrobiæ w tek¶cie TeX-owym"
+
+#: cw-nls.w:4304 cw-nls.w:4313
+msgid "! Improper macro definition"
+msgstr "! Niepoprawna makrodefinicja"
+
+#: cw-nls.w:4339
+msgid "! Improper format definition"
+msgstr "! Niepoprawna definicja formatu"
+
+#: cw-nls.w:4374
+msgid "! You need an = sign after the section name"
+msgstr "! Po nazwie sekcji powinien wyst±piæ znak `='"
+
+#: cw-nls.w:4396
+msgid "! You can't do that in C text"
+msgstr "! Nie mo¿na tego zrobiæ z kodem w C"
+
+#: cw-nls.w:4493
+msgid ""
+"\n"
+"Writing the index..."
+msgstr ""
+"\n"
+"Piszê do indeksu..."
+
+#: cw-nls.w:4497
+msgid "! Cannot open index file "
+msgstr "! Nie mogê otworzyæ pliku z indeksem "
+
+#: cw-nls.w:4512
+msgid "! Cannot open section file "
+msgstr "! Nie mogê otworzyæ pliku z nazwami sekcji "
+
+#: cw-nls.w:4524 ct-nls.w:573
+msgid ""
+"\n"
+"Done."
+msgstr ""
+"\n"
+"Gotowe."
+
+#: cw-nls.w:4783 ct-nls.w:1554
+msgid ""
+"\n"
+"Memory usage statistics:\n"
+msgstr ""
+"\n"
+"Statystyka wykorzystanej pamiêci:\n"
+
+#: cw-nls.w:4785 ct-nls.w:1555
+#, c-format
+msgid "%ld names (out of %ld)\n"
+msgstr "%ld nazw (z %ld)\n"
+
+#: cw-nls.w:4787
+#, c-format
+msgid "%ld cross-references (out of %ld)\n"
+msgstr "%ld odsy³aczy (z %ld)\n"
+
+#: cw-nls.w:4789 ct-nls.w:1559
+#, c-format
+msgid "%ld bytes (out of %ld)\n"
+msgstr "%ld bajty(-ów) (z %ld)\n"
+
+#: cw-nls.w:4791
+msgid "Parsing:\n"
+msgstr "Analiza sk³adniowa:\n"
+
+#: cw-nls.w:4792
+#, c-format
+msgid "%ld scraps (out of %ld)\n"
+msgstr "%ld wycinków (z %ld)\n"
+
+#: cw-nls.w:4794
+#, c-format
+msgid "%ld texts (out of %ld)\n"
+msgstr "%ld tekstów (z %ld)\n"
+
+#: cw-nls.w:4796 ct-nls.w:1561
+#, c-format
+msgid "%ld tokens (out of %ld)\n"
+msgstr "%ld tokenów (z %ld)\n"
+
+#: cw-nls.w:4798 cw-nls.w:4801
+#, c-format
+msgid "%ld levels (out of %ld)\n"
+msgstr "%ld poziomów (z %ld)\n"
+
+#: cw-nls.w:4800
+msgid "Sorting:\n"
+msgstr "Sortowanie:\n"
+
+#: ct-nls.w:61
+msgid "This is CTANGLE-NLS (Version 3.64k)\n"
+msgstr "To jest CTANGLE-NLS (Wersja 3.64k)\n"
+
+#: ct-nls.w:437
+msgid ""
+"\n"
+"! Not present: <"
+msgstr ""
+"\n"
+"! Sekcja nie wystêpuje: <"
+
+#: ct-nls.w:553
+msgid ""
+"\n"
+"! No program text was specified."
+msgstr ""
+"\n"
+"! Brak tekstu programu."
+
+#: ct-nls.w:559
+#, c-format
+msgid ""
+"\n"
+"Writing the output file (%s):"
+msgstr ""
+"\n"
+"Wynik zapisujê do pliku (%s):"
+
+#: ct-nls.w:563
+msgid ""
+"\n"
+"Writing the output files:"
+msgstr ""
+"\n"
+"Wyniki zapisujê do plików:"
+
+#: ct-nls.w:587
+msgid "! Cannot open output file:"
+msgstr "! Nie mogê otworzyæ pliku wyj¶ciowego:"
+
+#: ct-nls.w:639
+msgid "macro defs have strange char"
+msgstr "w makrodefinicjach wystêpuj± nieznane znaki"
+
+#: ct-nls.w:880
+msgid "! Section name ended in mid-comment"
+msgstr "! Nazwa sekcji skoñczy³a siê w trakcie czytania komentarza"
+
+#: ct-nls.w:1077 ct-nls.w:1514
+msgid "! Double @ should be used in control text"
+msgstr "! Podwójny znak @ powinien byæ u¿yty w tek¶cie kontrolnym"
+
+#: ct-nls.w:1171
+msgid "! Nesting of section names not allowed"
+msgstr "! Zagnie¿d¿anie nazw sekcji nie jest dozwolone"
+
+#: ct-nls.w:534
+msgid "output files"
+msgstr "pliki wyj¶ciowe"
+
+#: ct-nls.w:1103
+msgid "! Double @ should be used in ASCII constant"
+msgstr "! Podwójny znak @ powinien byæ u¿yty w sta³ej ASCII"
+
+#: ct-nls.w:1291
+msgid "! Missing `@ ' before a named section"
+msgstr "! Brak znaku `@ ' przed nazw± sekcji"
+
+#: ct-nls.w:1302
+msgid "! Double @ should be used in string"
+msgstr "! W napisie powinien byæ u¿yty podwójny znak @"
+
+#: ct-nls.w:1349
+msgid "! Unrecognized escape sequence"
+msgstr "! Nie rozpoznana sekwencja unikowa"
+
+#: ct-nls.w:1281
+msgid "! @d, @f and @c are ignored in C text"
+msgstr "! @d, @f i @c s± ignorowane w tek¶cie C"
+
+#: ct-nls.w:1424
+msgid "! Definition flushed, must start with identifier"
+msgstr "! Pomijam definicjê. Definicja powinna zaczynaæ siê od identyfikatora"
+
+#: ct-nls.w:1530
+msgid "! Improper hex number following @l"
+msgstr "! Niepoprawny znak heksadecymalny nastêpuj±cy po @l"
+
+#: ct-nls.w:1540
+msgid "! Replacement string in @l too long"
+msgstr "! Za d³ugi napis do wymiany w @l"
+
+#: ct-nls.w:1557
+#, c-format
+msgid "%ld replacement texts (out of %ld)\n"
+msgstr "%ld tekstów do wymiany (z %ld)\n"

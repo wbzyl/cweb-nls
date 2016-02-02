@@ -1,0 +1,154 @@
+-------------------------------------------------------------------------
+$RCSfile: INSTALL,v $    $Revision: 1.1.1.1 $    $Date: 2003/09/24 20:53:43 $
+-------------------------------------------------------------------------
+
+The CWEB-NLS programs are distributed WITHOUT ANY WARRANTY, 
+express or implied.
+
+Copyright (C) 1998 W{\l}odek Bzyl
+
+Permission is granted to make and distribute verbatim copies of this
+document provided that the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+document under the conditions for verbatim copying, provided that the
+entire resulting derived work is given a different name and distributed 
+under the terms of a permission notice identical to this one.
+
+Please send comments, suggestions, etc. to <matwb@univ.gda.pl>.
+-------------------------------------------------------------------------
+
+ATTENTION:
+
+`Makefile' uses `ctangle' and `tie' to build programs. If you do not
+have these programs, it is not a problem, because the directory
+`../boot' contains already tangled and tied C sources. So, in that
+case edit `../boot/Makefile' as described in the step 1. below, then
+`make install' there, and return to the step 3.
+
+
+INSTALLATION:
+
+Step 1. `Makefile' contains following assignments:
+
+   MACROSDIR=/usr/TeX/texmf-local/tex/cweb -- place for CWEB-NLS files
+   BINDIR=/usr/local/bin -- where binaries would be copied
+   CWEBINPUTS=/usr/local/TeX/texmf/cweb -- place where CWEB sources are stored
+     This variable is set in `texmf.cnf' file to: .;$TEXMF/cweb//
+   KPATHSEA-HEADERS --
+
+   Probably these values should be adjusted to your system.
+
+Step 2. Execute `make install'. 
+   This should install binaries and TeX macro files on your system.
+
+Step 3. Activate `Kpathsea' mechanism. 
+   Add a line to `texmf.cnf' -- Web2C configuration file:
+
+      CWEBINPUTS.nls = .:<MACROSDIR set in step 1. above>//:<other paths>
+
+   If you have installed a Web2C distribution of TeX (for example
+   teTeX) the output of the command `kpsewhich texmf.cnf' shows
+   pathnames of Web2C configuration files. I use:
+      CWEBINPUTS.nls = .:/usr/TeX/texmf.config/tex/cweb//
+
+Step 4. In case, when Web2C configuration files are not stored in 
+   directories which names are build into binaries, these names should
+   be set to appropriate values using variable TEXMFCNF.
+   This is typically done in login initialization files.
+   For example, `bash' shell uses following configuration files: 
+     `$HOME/.profile' -- private, `/etc/profile' -- system wide.
+   So I add a line:
+
+      export TEXMFCNF={.:$HOME/texmf/web2c:/usr/TeX/texmf.config/web2c}
+   
+   Finally, check values of LANG and LC_ALL environment variables
+   (simply issue `echo $LANG' and `echo $LC_ALL' on the command-line, 
+   to learn language used on your system). 
+   I use `LANG=pl_PL'. This could be also set in login initialization files.
+   But I prefer another approach. I am setting language on each run:
+         
+      LANG=pl_PL cw foo.w
+  
+
+NOTE: 
+
+   You can see the locale and the collating order being used by
+   activating `peeping mode' in literate program. To activate it put
+
+      `@ @c @3'. 
+
+   somewhere in your literate source. The command `@3' forces `cw '
+   to dump on `stdin' the name of locale being used and the collation
+   tables `xchr'/`xord' used for sorting.
+
+
+SUPPORTED LANGUAGES: C (English/US), Polish
+
+   Other languages could also be added. To do that, translate messages 
+   contained in template files:
+
+      tex/cweb-nls.msg   -- messages used in TeXed files (required)
+      po/cweb-nls.po     -- messages output by `ct' and `cw' (optional)
+
+    If you find time to do that, please, email these translations to me 
+    <matwb@univ.gda.pl>, so I could add them to the package.
+
+
+TROUBLESHOOTING
+
+1. In case, when old versions of the CWEB files are being used
+   during `make install', the following messages appears: 
+     
+     ! Change file entry did not match. ...
+
+   Because CWEB files did not change much in time such messages 
+   typically result of the change in version number.
+   Therefore, it only takes correcting the offending changes in 
+   `*-ban.ch' to avoid these error messages. 
+   
+   By the way, the recent version CWEB could be get from any CTAN
+   archive, for example <ftp.dante.de/pub/web/cweb>
+
+2. Old systems use internally two letters for countries codenames, 
+   while new systems use four letter for that purpose.
+   In Makefiles I use four letter codenames. If you do not know
+   whether your system is old or new compile and execute the
+   following program.
+
+show-country-codename.c
+------------------------------------------------------------------
+#include <locale.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int main() 
+{
+  char *locale_codename = setlocale(LC_ALL, "");
+  
+  printf("Internal country codename: [%s]\n", locale_codename);
+  return EXIT_SUCCESS;
+}
+------------------------------------------------------------------
+Compile it with:
+
+  cc -o show-country-codename show-country-codename.c
+
+and execute with:
+
+  LANG=polish show-internal-country-codename
+
+If you see `pl_PL', then your system is a new one.
+If you see `pl', then your system is old one. 
+Set LANGUAGE variable Makefiles to `pl', and everything should work.
+
+If you do not see `pl' or `pl_PL', that means locales are not
+properly installed. In that case try both command-lines below.
+
+  LANG=pl_PL show-internal-country-codename 
+  LANG=pl show-internal-country-codename 
+
+If at least one shows `pl_PL' or `pl', that means locales work
+but you may not use `LANG=polish' in Makefiles and examples.
+Use `LANG=pl_PL' or LANG=`pl' instead.

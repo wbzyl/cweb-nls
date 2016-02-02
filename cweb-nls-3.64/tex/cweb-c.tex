@@ -1,0 +1,13 @@
+% This file belongs to the CWEB-NLS package.
+
+\input cwebmac.tex
+
+% Support for CVS keywords: Revision, Date, Source
+\def\getCVSrevision$#1: #2 ${\global\def\CVSrevision{#2}}
+\def\getCVSdate$#1: #2 #3 ${\global\def\CVSdate{#2}}
+\def\getCVSsource{\begingroup \catcode`\_=11 \xgetCVSsource}
+\begingroup \catcode`\_=11
+  \gdef\xgetCVSsource$#1: #2 ${\gdef\CVSsource{#2}\endgroup}%
+\endgroup
+
+\endinput

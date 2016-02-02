@@ -1,0 +1,126 @@
+% This file belongs to the CWEB-NLS package.
+
+
+% Redefine all cwebmac.tex macros which typeset messages
+
+\font\ninerm=^MESSAGE{1}
+\let\mc=\ninerm % medium caps
+\font\eightrm=^MESSAGE{2}
+\let\sc=\eightrm % small caps (NOT a caps-and-small-caps font)
+\let\mainfont=\tenrm
+\let\cmntfont\tenrm
+%\font\tenss=^MESSAGE{3} \let\cmntfont\tenss % alternative comment font
+\font\titlefont=^MESSAGE{4} scaled\magstep4 % title on the contents page
+\font\ttitlefont=^MESSAGE{5} scaled\magstep2 % typewriter type in title
+%\font\tentex=^MESSAGE{6} % TeX extended character set (used in strings)
+\font\tentex=^MESSAGE{7} % cmtex10 does not contain Polish characters
+\fontdimen7\tentex=0pt % no double space after sentences
+
+\def\postATL#1 #2 {^MESSAGE{8}\egroup\par}
+\def\ATH{{\acrofalse\X\kern-.5em:^MESSAGE{9}\X}}
+
+\def\A{\note{^MESSAGE{10}}} % xref for doubly defined section name
+\def\As{\note{^MESSAGE{11}}} % xref for multiply defined section name
+\def\ET{ ^MESSAGE{12}~} % conjunction between two section numbers
+\def\ETs{^MESSAGE{13}~} % conjunction between the last two of several section numbers
+\def\F{\defin{^MESSAGE{14}}} % format definition
+% no examples of \Q and \Qs in cweave.tex
+\def\Q{\note{^MESSAGE{15}}} 
+% xref for mention of a section
+\def\Qs{\note{^MESSAGE{16}}} 
+% xref for mentions of a section
+\def\U{\note{^MESSAGE{17}}} 
+% xref for use of a section
+\def\Us{\note{^MESSAGE{18}}} 
+\gtitle={^MESSAGE{19}} % this running head is reset by starred sections
+% xref for uses of a section
+\def\ch{\note{^MESSAGE{20}}^n
+  \let\*=\relax}
+
+\def\inx{\par\vskip6pt plus 1fil % we are beginning the index^n
+  \def\page{\box255 } \normalbottom^n
+  \write\cont{} % ensure that the contents file isn't empty^n
+       \write\cont{\catcode `\noexpand\@=12\relax}   % \makeatother^n
+  \closeout\cont % the contents information has been fully gathered^n
+  \output{\ifpagesaved\normaloutput{\box\sbox}\lheader\rheader\fi^n
+    \global\setbox\sbox=\page \global\pagesavedtrue}^n
+  \pagesavedfalse \eject % eject the page-so-far and predecessors^n
+  \setbox\sbox\vbox{\unvbox\sbox} % take it out of its box^n
+  \vsize=\pageheight \advance\vsize by -\ht\sbox % the remaining height^n
+  \hsize=.5\pagewidth \advance\hsize by -10pt^n
+    % column width for the index (20pt between cols)^n
+  \parfillskip 0pt plus .6\hsize % try to avoid almost empty lines^n
+  \def\lr{L} % this tells whether the left or right column is next^n
+  \output{\if L\lr\global\setbox\lbox=\page \gdef\lr{R}^n
+    \else\normaloutput{\vbox to\pageheight{\box\sbox\vss^n
+        \hbox to\pagewidth{\box\lbox\hfil\page}}}\lheader\rheader^n
+    \global\vsize\pageheight\gdef\lr{L}\global\pagesavedfalse\fi}^n
+  \message{^MESSAGE{21}}^n
+  \parskip 0pt plus .5pt^n
+  \outer\def\I##1, ##2.{\par\hangindent2em\noindent##1:\kern1em^n
+    \ifacro\pdfnote##2.\else##2\fi.} % index entry^n
+  \def\[##1]{$\underline{##1}$} % underlined index item^n
+  \rm \rightskip0pt plus 2.5em \tolerance 10000 \let\*=\lapstar^n
+  \hyphenpenalty 10000 \parindent0pt^n
+  \readindex}
+\def\fin{\par\vfill\eject % this is done when we are ending the index^n
+  \ifpagesaved\null\vfill\eject\fi % output a null index column^n
+  \if L\lr\else\null\vfill\eject\fi % finish the current page^n
+  \parfillskip 0pt plus 1fil^n
+  \def\grouptitle{^MESSAGE{22}}^n
+  \let\topsecno=\nullsec^n
+  \message{^MESSAGE{23}}^n
+  \output={\normaloutput\page\lheader\rheader}^n
+  \setpage^n
+  \def\note##1##2.{\quad{\eightrm##1~\ifacro{\pdfnote##2.}\else{##2}\fi.}}^n
+  \def\Q{\note{^MESSAGE{24}}} % crossref for mention of a section^n
+  \def\Qs{\note{^MESSAGE{25}}} % crossref for mentions of a section^n
+  \def\U{\note{^MESSAGE{26}}} % crossref for use of a section^n
+  \def\Us{\note{^MESSAGE{27}}} % crossref for uses of a section^n
+  \def\I{\par\hangindent 2em}\let\*=*^n
+  \ifacro \def\outsecname{^MESSAGE{28}} \let\Xpdf\X^n
+  \ifpdftex \makebookmarks \pdfdest name {NOS} fitb^n
+    \pdfoutline goto name {NOS} count -\secno {\outsecname}^n
+    \def\X##1:##2\X{\Xpdf##1:##2\X \firstsecno##1.%^n
+      {\toksF={}\makeoutlinetoks##2\outlinedone\outlinedone}%^n
+      \pdfoutline goto num \the\toksA \expandafter{\the\toksE}}^n
+  \else\ifpdf^n
+    \special{pdf: outline -1 << /Title (\outsecname)^n
+      /Dest [ @thispage /FitH @ypos ] >>}^n
+    \def\X##1:##2\X{\Xpdf##1:##2\X \firstsecno##1.%^n
+      {\toksF={}\makeoutlinetoks##2\outlinedone\outlinedone}%^n
+      \special{pdf: outline 0 << /Title (\the\toksE)^n
+        /A << /S /GoTo /D (\romannumeral\the\toksA) >> >>}}^n
+  \fi\fi\fi^n
+  \readsections}
+\def\con{\par\vfill\eject % finish the section names^n
+% \ifodd\pageno\else\titletrue\null\vfill\eject\fi % for duplex printers^n
+  \rightskip 0pt \hyphenpenalty 50 \tolerance 200^n
+  \setpage \output={\normaloutput\page\lheader\rheader}^n
+  \titletrue % prepare to output the table of contents^n
+  \pageno=\contentspagenumber^n
+  \def\grouptitle{^MESSAGE{29}}^n
+  \message{^MESSAGE{30}}^n
+  \topofcontents^n
+  \line{\hfil ^MESSAGE{31} \hbox to3em{\hss ^MESSAGE{32}}}^n
+  \let\ZZ=\contentsline^n
+  \readcontents\relax % read the contents info^n
+  \botofcontents \end} % print the contents page(s) and terminate
+\def\contentsline#1#2#3#4#5{\ifnum#2=0 \smallbreak\fi^n
+    \line{\consetup{#2}#1^n
+      \rm\leaders\hbox to .5em{.\hfil}\hfil^n
+      \ \ifacro\pdflink{#3}{\romannumeral#3}\else#3\fi\hbox to3em{\hss#4}}}
+
+\def\today{\ifcase\month\or^n
+  ^MESSAGE{33}\or ^MESSAGE{34}\or ^MESSAGE{35}\or^n
+  ^MESSAGE{36}\or ^MESSAGE{37}\or ^MESSAGE{38}\or^n
+  ^MESSAGE{39}\or ^MESSAGE{40}\or ^MESSAGE{41}\or^n
+  ^MESSAGE{42}\or ^MESSAGE{43}\or ^MESSAGE{44}\fi^n
+  \space\number\day, \number\year}
+
+\def\datethis{\def\startsection{\leftline{\sc\today\ ^MESSAGE{45} \hours}\bigskip^n
+  \let\startsection=\stsec\stsec}}
+  % say `\datethis' in limbo, to get your listing timestamped before section 1
+\def\datecontentspage{%^n
+  \def\topofcontents{\leftline{\sc\today\ ^MESSAGE{45} \hours}\bigskip^n
+   \centerline{\titlefont\title}\vfill}} % timestamps the contents page

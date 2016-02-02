@@ -1,0 +1,27 @@
+% This file belongs to the CWEB-NLS package.
+
+
+% MeX logo -- nedded for typesetting with plain.
+
+\catcode`\@=11
+\def\f@sl{\fontdimen1\the\font}% font slant
+\def\nM@X{M\kern-.111em\lower.6ex\hbox{E}\kern-.075emX}
+% to be used with slanted typefaces:
+\def\sM@X{M\kern-.25em\lower.6ex\hbox{E}\kern-.075emX}
+% general macro:
+\def\MeX{\ifnum\f@sl=0 \nM@X \else \sM@X \fi}
+\catcode`\@=12
+
+% For cross-references between sections use \labsec{...} 
+% to make reference to current section and \refsec{...} 
+% when referring to it
+
+\def\labsec#1{\expandafter\xdef\csname#1\endcsname{\secno}}
+\def\refsec#1{\expandafter\ifx\csname#1\endcsname\relax^n
+ ???\immediate\write16{[niezdefiniowany odsy³acz: 1]}\else^n
+ \csname#1\endcsname\fi}
+
+% Do typeseting according to the Polish typographic conventions.
+\language\polish
+\nonprefixing
+\frenchspacing
