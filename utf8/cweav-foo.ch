@@ -1,4 +1,21 @@
 @x
+@c @<Include files@>@/
+@y
+@c
+#include <wchar.h>
+#include <locale.h>
+#include <wctype.h>
+@<Include files@>@/
+@z
+
+@x
+  argc=ac; argv=av;
+@y
+  setlocale(LC_CTYPE, "en_US.UTF-8");
+  argc=ac; argv=av;
+@z
+
+@x
 @d buf_size 100 /* maximum length of input line, plus one */
 @y
 @d buf_size 1000 /* maximum length of input line, plus one */
@@ -75,6 +92,45 @@ void out(char c)
 @z
 
 @x
+      if (xislower(*p)) { /* not entirely uppercase */
+         delim='\\'; break;
+      }
+@y
+      if (xislower(*p)) { /* not entirely uppercase */
+         delim='\\'; break;
+      }
+      else if (ishigh(*p)) {
+          char my_z;
+          int my_n;
+          int my_i;
+          int my_k;
+          my_n = 0;
+          for (my_i = 6; my_i >= 0; my_i--) { /* count number of 1's after first 1 */
+            my_z = 1 << my_i;
+            if ((my_z & *p) == my_z) my_n++;
+            else break;
+          }
+          wchar_t my_wc = 0;
+          int my_y = my_n;
+          int my_q = my_n;
+          for (my_i = 0; my_i <= my_n; my_i++) { /* loop over all bytes of symbol */
+            for (my_k = 5 - my_y; my_k >= 0; my_k--) { /* loop over all bits */
+              my_z = 1 << my_k;
+              if ((my_z & *p) == my_z) my_wc |= 1 << (6*my_q+my_k);
+            }
+            my_y = 0;
+            my_q--;
+            p++;
+          }
+          p--;
+          if (iswlower(my_wc)) {
+            delim = '\\';
+            break;
+          }
+        }
+@z
+
+@x
       if (b!='0' || force_lines==0) out(b)@;
 @y
       if (b!='0' || force_lines==0) out(b);
@@ -84,4 +140,37 @@ void out(char c)
   else if (b!='|') out(b)
 @y
   else if (b!='|') out(b);
+@z
+
+@x
+        if (xislower(*j)) goto lowcase;
+@y
+        if (xislower(*j)) goto lowcase;
+        else if (ishigh(*j)) {
+          char my_z;
+          int my_n;
+          int my_i;
+          int my_k;
+          my_n = 0;
+          for (my_i = 6; my_i >= 0; my_i--) { /* count number of 1's after first 1 */
+            my_z = 1 << my_i;
+            if ((my_z & *j) == my_z) my_n++;
+            else break;
+          }
+          wchar_t my_wc = 0;
+          int my_y = my_n;
+          int my_q = my_n;
+          for (my_i = 0; my_i <= my_n; my_i++) { /* loop over all bytes of symbol */
+            for (my_k = 5 - my_y; my_k >= 0; my_k--) { /* loop over all bits */
+              my_z = 1 << my_k;
+              if ((my_z & *j) == my_z) my_wc |= 1 << (6*my_q+my_k);
+            }
+            my_y = 0;
+            my_q--;
+            j++;
+          }
+          j--;
+          if (iswlower(my_wc))
+            goto lowcase;
+        }
 @z
