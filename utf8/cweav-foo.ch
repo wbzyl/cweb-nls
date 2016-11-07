@@ -28,13 +28,15 @@
 @z
 
 @x
+@d is_tiny(p) ((p+1)->byte_start==(p)->byte_start+1)
+@y
+@d is_tiny(p) ((p+1)->byte_start==(p)->byte_start+mblen((p)->byte_start, MB_CUR_MAX))
+@z
+
+@x
 @d out(c) {if (out_ptr>=out_buf_end) break_out(); *(++out_ptr)=c;}
 @y
-@<Predecl...@>=
-void out(char c);
-@ @c
-void out(char c)
-{
+@d out(c) {
   int utf8count = 0;
   for (char *i = out_buf; i<=out_ptr; i++) {
     if ((((eight_bits)(*i) & (1<<7)) &&
@@ -45,7 +47,6 @@ void out(char c)
   if (utf8count>80) break_out();
   *(++out_ptr)=c;
 }
-@ Dummy.
 @z
 
 @x
@@ -86,12 +87,6 @@ void out(char c)
 @z
 
 @x
-  } else if (is_tiny(cur_name)) out('|')@;
-@y
-  } else if (is_tiny(cur_name)) out('|');
-@z
-
-@x
       if (xislower(*p)) { /* not entirely uppercase */
          delim='\\'; break;
       }
@@ -100,46 +95,20 @@ void out(char c)
          delim='\\'; break;
       }
       else if (ishigh(*p)) {
-          char my_z;
-          int my_n;
-          int my_i;
-          int my_k;
-          my_n = 0;
-          for (my_i = 6; my_i >= 0; my_i--) { /* count number of 1's after first 1 */
-            my_z = 1 << my_i;
-            if ((my_z & *p) == my_z) my_n++;
-            else break;
-          }
-          wchar_t my_wc = 0;
-          int my_y = my_n;
-          int my_q = my_n;
-          for (my_i = 0; my_i <= my_n; my_i++) { /* loop over all bytes of symbol */
-            for (my_k = 5 - my_y; my_k >= 0; my_k--) { /* loop over all bits */
-              my_z = 1 << my_k;
-              if ((my_z & *p) == my_z) my_wc |= 1 << (6*my_q+my_k);
-            }
-            my_y = 0;
-            my_q--;
-            p++;
-          }
-          p--;
-          if (iswlower(my_wc)) {
-            delim = '\\';
-            break;
+          wchar_t wc;
+          mbtowc(&wc, p, MB_CUR_MAX);
+          if (iswlower(wc)) {
+            delim = '\\'; break;
           }
         }
 @z
 
 @x
-      if (b!='0' || force_lines==0) out(b)@;
+  out((cur_name->byte_start)[0]);
 @y
-      if (b!='0' || force_lines==0) out(b);
-@z
-
-@x
-  else if (b!='|') out(b)
-@y
-  else if (b!='|') out(b);
+  out((cur_name->byte_start)[0]);
+  for (int w = 1; w < mblen(cur_name->byte_start, MB_CUR_MAX); w++)
+    out((cur_name->byte_start)[w]);
 @z
 
 @x
@@ -147,30 +116,9 @@ void out(char c)
 @y
         if (xislower(*j)) goto lowcase;
         else if (ishigh(*j)) {
-          char my_z;
-          int my_n;
-          int my_i;
-          int my_k;
-          my_n = 0;
-          for (my_i = 6; my_i >= 0; my_i--) { /* count number of 1's after first 1 */
-            my_z = 1 << my_i;
-            if ((my_z & *j) == my_z) my_n++;
-            else break;
-          }
-          wchar_t my_wc = 0;
-          int my_y = my_n;
-          int my_q = my_n;
-          for (my_i = 0; my_i <= my_n; my_i++) { /* loop over all bytes of symbol */
-            for (my_k = 5 - my_y; my_k >= 0; my_k--) { /* loop over all bits */
-              my_z = 1 << my_k;
-              if ((my_z & *j) == my_z) my_wc |= 1 << (6*my_q+my_k);
-            }
-            my_y = 0;
-            my_q--;
-            j++;
-          }
-          j--;
-          if (iswlower(my_wc))
+          wchar_t wc;
+          mbtowc(&wc, j, MB_CUR_MAX);
+          if (iswlower(wc))
             goto lowcase;
         }
 @z
