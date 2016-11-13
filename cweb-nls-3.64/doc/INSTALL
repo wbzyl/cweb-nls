@@ -80,7 +80,7 @@ NOTE:
       `@ @c @3'. 
 
    somewhere in your literate source. The command `@3' forces `cw '
-   to dump on `stdin' the name of locale being used and the collation
+   to dump on `stdout' the name of locale being used and the collation
    tables `xchr'/`xord' used for sorting.
 
 
