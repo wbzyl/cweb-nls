@@ -56,41 +56,20 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
 }
 @z
 
-@x l.3194
-  int count; /* characters remaining before string break */
-@y
-  int count; /* characters remaining before string break */
-  int finish_symbol;
-@z
-
-@x l.3353
-  if (count==0) { /* insert a discretionary break in a long string */
-     app_str(@q(@>@q{@>"}\\)\\.{"@q}@>); count=20;
-@q(@>@.\\)@>
+@x l.3407
+  if((eight_bits)(*id_first)>0177) {
+    app_tok(quoted_char);
+    app_tok((eight_bits)(*id_first++));
   }
 @y
-  if (count==0) {
-     if (((eight_bits)(*id_first) & (1<<7)) &&
-        (~((eight_bits)(*id_first)) & (1<<6))) { /* if we see 10x, move on */
-       count=1;
-       finish_symbol = 1;
-     }
-     else {
-       finish_symbol = 0;
-       app_str("}\\)\\.{");
-       count=20;
-     }
+  if((eight_bits)(*id_first)>0177) {
+    app_tok(quoted_char);
+    app_tok((eight_bits)(*id_first++));
+    for (int w = mblen(cur_name->byte_start,MB_CUR_MAX); w > 0; w--) {
+      app_tok(quoted_char);
+      app_tok((eight_bits)(*id_first++));
+    }
   }
-@z
-
-@x l.3383
-  count--;
-@y
-  if (finish_symbol == 1) count--;
-  else if ((((eight_bits)(*(id_first - 1)) & (1<<7)) &&
-          ((eight_bits)(*(id_first - 1)) & (1<<6))) ||
-          (~((eight_bits)(*(id_first - 1))) & (1<<7))) /* decrease only when we see 11x or 0x */
-         count--;
 @z
 
 @x l.3696
