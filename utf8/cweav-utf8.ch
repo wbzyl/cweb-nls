@@ -3,8 +3,9 @@
 @y
 @c
 #include <wchar.h>
-#include <locale.h>
 #include <wctype.h>
+#include <limits.h>
+#include <locale.h>
 @<Include files@>@/
 @z
 
@@ -16,21 +17,33 @@
 @z
 
 @x
-@d buf_size 100 /* maximum length of input line, plus one */
+@d long_buf_size (buf_size+longest_name)
 @y
-@d buf_size 1000 /* maximum length of input line, plus one */
+@d long_buf_size (buf_size*MB_LEN_MAX+longest_name*MB_LEN_MAX)
 @z
 
 @x
-@d line_length 80 /* lines of \TEX/ output have at most this many characters;
+@i common.h
 @y
-@d line_length 255 /* lines of \TEX/ output have at most this many characters;
+@i comm-utf8.h
 @z
 
 @x
 @d is_tiny(p) ((p+1)->byte_start==(p)->byte_start+1)
 @y
-@d is_tiny(p) ((p+1)->byte_start==(p)->byte_start+mblen((p)->byte_start, MB_CUR_MAX))
+@d is_tiny(p) ((p+1)->byte_start==(p)->byte_start+mblen((p)->byte_start,MB_CUR_MAX))
+@z
+
+@x
+char out_buf[line_length+1]; /* assembled characters */
+@y
+char out_buf[line_length*MB_LEN_MAX+1]; /* assembled characters */
+@z
+
+@x
+char *out_buf_end = out_buf+line_length; /* end of |out_buf| */
+@y
+char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
 @z
 
 @x
@@ -44,7 +57,7 @@
           (~((eight_bits)(*i)) & (1<<7))) /* increase if 0x or 11x */
       utf8count++;
   }
-  if (utf8count>80) break_out();
+  if (utf8count>line_length) break_out();
   *(++out_ptr)=c;
 }
 @z
@@ -87,6 +100,12 @@
 @z
 
 @x
+  char scratch[longest_name]; /* scratch area for section names */
+@y
+  char scratch[longest_name*MB_LEN_MAX]; /* scratch area for section names */
+@z
+
+@x
       if (xislower(*p)) { /* not entirely uppercase */
          delim='\\'; break;
       }
@@ -98,7 +117,7 @@
           wchar_t wc;
           mbtowc(&wc, p, MB_CUR_MAX);
           if (iswlower(wc)) {
-            delim = '\\'; break;
+            delim='\\'; break;
           }
         }
 @z
@@ -107,7 +126,7 @@
   out((cur_name->byte_start)[0]);
 @y
   out((cur_name->byte_start)[0]);
-  for (int w = 1; w < mblen(cur_name->byte_start, MB_CUR_MAX); w++)
+  for (int w = 1; w < mblen(cur_name->byte_start,MB_CUR_MAX); w++)
     out((cur_name->byte_start)[w]);
 @z
 
@@ -118,7 +137,6 @@
         else if (ishigh(*j)) {
           wchar_t wc;
           mbtowc(&wc, j, MB_CUR_MAX);
-          if (iswlower(wc))
-            goto lowcase;
+          if (iswlower(wc)) goto lowcase;
         }
 @z
