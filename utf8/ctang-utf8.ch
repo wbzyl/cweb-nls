@@ -1,7 +1,21 @@
 @x
-@d buf_size 100 /* for \.{CWEAVE} and \.{CTANGLE} */
+@<Include files@>@/
 @y
-@d buf_size 1000 /* for \.{CWEAVE} and \.{CTANGLE} */
+#include <locale.h>
+@<Include files@>@/
+@z
+
+@x
+  argc=ac; argv=av;
+@y
+  setlocale(LC_CTYPE, "en_US.UTF-8");
+  argc=ac; argv=av;
+@z
+
+@x
+@i common.h
+@y
+@i comm-utf8.h
 @z
 
 @x
@@ -77,10 +91,6 @@
   x[0x9f] = "Я";
   x[0xef] = "я";
   x[0xfc] = "№";
-  /* This is an example for Polish language:
-    x[0xb1] = "ą";
-    ...
-  */
 @z
 
 @x
