@@ -50,26 +50,19 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
 @d out(c) {if (out_ptr>=out_buf_end) break_out(); *(++out_ptr)=c;}
 @y
 @d out(c) {
-  *(out_ptr+1)='\0';
-  if ((ssize_t)mbstowcs(NULL,out_buf,0)>line_length) break_out();
+  if (*(out_ptr+1)='\0',(ssize_t)mbstowcs(NULL,out_buf,0)>line_length) break_out();
   *(++out_ptr)=c;
 }
 @z
 
-@x l.3407
+@x l.3358
   if((eight_bits)(*id_first)>0177) {
-    app_tok(quoted_char);
-    app_tok((eight_bits)(*id_first++));
-  }
 @y
   if((eight_bits)(*id_first)>0177) {
-    app_tok(quoted_char);
-    app_tok((eight_bits)(*id_first++));
-    for (int w = mblen(cur_name->byte_start,MB_CUR_MAX); w > 0; w--) {
+    for (int w = mblen(id_first,MB_CUR_MAX); w > 1; w--) {
       app_tok(quoted_char);
       app_tok((eight_bits)(*id_first++));
     }
-  }
 @z
 
 @x l.3696
