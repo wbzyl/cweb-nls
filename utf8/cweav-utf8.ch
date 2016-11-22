@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <locale.h>
 @<Include files@>@/
+size_t mbsntowcs (wchar_t *, const char *, size_t, size_t);
 @z
 
 @x l.102
@@ -50,7 +51,7 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
 @d out(c) {if (out_ptr>=out_buf_end) break_out(); *(++out_ptr)=c;}
 @y
 @d out(c) {
-  if (*(out_ptr+1)='\0',(ssize_t)mbstowcs(NULL,out_buf,0)>line_length) break_out();
+  if ((ssize_t)mbsntowcs(NULL,out_buf,out_ptr-out_buf+1,0)>line_length) break_out();
   *(++out_ptr)=c;
 }
 @z
