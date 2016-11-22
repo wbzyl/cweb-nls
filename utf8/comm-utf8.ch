@@ -4,6 +4,11 @@
 #include <wchar.h>
 #include <limits.h>
 @<Include files@>@/
+size_t mbsntowcs (wchar_t *pwcs, const char *s, size_t n, size_t len)
+{
+  char *dummy = s;
+  return mbsnrtowcs(pwcs, &dummy, n, len, NULL);
+}
 @z
 
 @x
@@ -23,9 +28,9 @@ char *buffer_end=buffer+buf_size*MB_LEN_MAX-2; /* end of |buffer| */
     if ((*(k++) = c) != ' ') limit = k;
   if (k>buffer_end)
 @y
-  while (*k='\0', (ssize_t)mbstowcs(NULL, buffer, 0)<buf_size-1 && (c=getc(fp)) != EOF && c!='\n')
+  while ((ssize_t)mbsntowcs(NULL,buffer,k-buffer,0)<buf_size-1 && (c=getc(fp)) != EOF && c!='\n')
     if ((*(k++) = c) != ' ') limit = k;
-  if (mbstowcs(NULL, buffer, 0)>=buf_size-1)
+  if (mbsntowcs(NULL,buffer,k-buffer,0)>=buf_size-1)
 @z
 
 @x
