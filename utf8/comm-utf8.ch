@@ -6,8 +6,7 @@
 @<Include files@>@/
 size_t mbsntowcs (wchar_t *pwcs, const char *s, size_t n, size_t len)
 {
-  char *dummy = s;
-  return mbsnrtowcs(pwcs, &dummy, n, len, NULL);
+  return mbsnrtowcs(pwcs, &s, n, len, NULL);
 }
 @z
 

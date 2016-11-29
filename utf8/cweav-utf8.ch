@@ -56,14 +56,18 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
 }
 @z
 
-@x l.3358
+@x l.3359
   if((eight_bits)(*id_first)>0177) {
+    app_tok(quoted_char);
+    app_tok((eight_bits)(*id_first++));
+  }
 @y
   if((eight_bits)(*id_first)>0177) {
-    for (int w = mblen(id_first,MB_CUR_MAX); w > 1; w--) {
+    for (int w = mblen(id_first,MB_CUR_MAX); w > 0; w--) {
       app_tok(quoted_char);
       app_tok((eight_bits)(*id_first++));
     }
+  }
 @z
 
 @x l.3696
@@ -89,12 +93,11 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
         }
 @z
 
-@x l.3767
+@x l.3768
   out((cur_name->byte_start)[0]);
 @y
-  out((cur_name->byte_start)[0]);
-  for (int w = 1; w < mblen(cur_name->byte_start,MB_CUR_MAX); w++)
-    out((cur_name->byte_start)[w]);
+  for (int w = 0; w < mblen(cur_name->byte_start,MB_CUR_MAX); w++)
+    out(*(cur_name->byte_start + w));
 @z
 
 @x l.4536
