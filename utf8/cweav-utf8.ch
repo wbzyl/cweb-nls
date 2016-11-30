@@ -8,6 +8,22 @@
 #include <locale.h>
 @<Include files@>@/
 size_t mbsntowcs (wchar_t *, const char *, size_t, size_t);
+extern char *encTeX[];
+int enc_lookup(wchar_t wc)
+{
+  int z;
+  char mb[MB_CUR_MAX];
+
+  if ((z = wctob(wc)) != EOF) return z;
+
+  wctomb(mb, wc);
+
+  for(z = 0x80; z <= 0xff; z++)
+    if (strlen(encTeX[z]) && (strncmp(mb, encTeX[z], strlen(encTeX[z])) == 0))
+      break;
+
+  return z;
+}
 @z
 
 @x l.102
@@ -98,6 +114,68 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
 @y
   for (int w = 0; w < mblen(cur_name->byte_start,MB_CUR_MAX); w++)
     out(*(cur_name->byte_start + w));
+@z
+
+@x l.4379
+@<Do the first pass...@>= {
+int c;
+for (c=0; c<=255; c++) bucket[c]=NULL;
+for (h=hash; h<=hash_end; h++) {
+  next_name=*h;
+  while (next_name) {
+    cur_name=next_name; next_name=cur_name->link;
+    if (cur_name->xref!=(char*)xmem) {
+      c=(eight_bits)((cur_name->byte_start)[0]);
+      if (xisupper(c)) c=tolower(c);
+      blink[cur_name-name_dir]=bucket[c]; bucket[c]=cur_name;
+    }
+  }
+}
+}
+@y
+@<Do the first pass...@>= {
+wchar_t wc;
+for (int c=0; c<=255; c++) bucket[c]=NULL;
+for (h=hash; h<=hash_end; h++) {
+  next_name=*h;
+  while (next_name) {
+    cur_name=next_name; next_name=cur_name->link;
+    if (cur_name->xref!=(char*)xmem) {
+      mbtowc(&wc,cur_name->byte_start,MB_CUR_MAX);
+      if (iswupper(wc)) wc=towlower(wc);
+      blink[cur_name-name_dir]=bucket[enc_lookup(wc)]; bucket[enc_lookup(wc)]=cur_name;
+    }
+  }
+}
+}
+@z
+
+@x l.4505
+  eight_bits c;
+  next_name=sort_ptr->head;
+  do {
+    cur_name=next_name; next_name=blink[cur_name-name_dir];
+    cur_byte=cur_name->byte_start+cur_depth;
+    if (cur_byte==(cur_name+1)->byte_start) c=0; /* hit end of the name */
+    else {
+      c=(eight_bits) *cur_byte;
+      if (xisupper(c)) c=tolower(c);
+    }
+  blink[cur_name-name_dir]=bucket[c]; bucket[c]=cur_name;
+@y
+  wchar_t wc;
+  next_name=sort_ptr->head;
+  do {
+    cur_name=next_name; next_name=blink[cur_name-name_dir];
+    cur_byte=cur_name->byte_start;
+    for (int w = 0; w < cur_depth; w++)
+      cur_byte+=mblen(cur_byte,MB_CUR_MAX);
+    if (cur_byte==(cur_name+1)->byte_start) wc=0; /* hit end of the name */
+    else {
+      mbtowc(&wc,cur_byte,MB_CUR_MAX);
+      if (iswupper(wc)) wc=towlower(wc);
+    }
+  blink[cur_name-name_dir]=bucket[enc_lookup(wc)]; bucket[enc_lookup(wc)]=cur_name;
 @z
 
 @x l.4536
