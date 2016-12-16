@@ -21,7 +21,6 @@ common_init()
 void
 common_init()
 {
-  for (int w=0; w<=255; w++) encTeX[w] = "";
   /* this mapping table mirrors encTeX definitions */
   encTeX[0x80] = "А";
   encTeX[0xa0] = "а";

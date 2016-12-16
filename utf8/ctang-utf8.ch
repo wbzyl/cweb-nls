@@ -23,11 +23,11 @@ extern char *encTeX[];
     else C_printf("%s",translit[(unsigned char)(*j)-0200]);
 @y
     else {
-      int z;
+      unsigned char z;
       for(z = 0x80; z <= 0xff; z++)
-        if (strlen(encTeX[z]) && (strncmp(j, encTeX[z], strlen(encTeX[z])) == 0))
+        if (encTeX[z] && (strncmp(j, encTeX[z], strlen(encTeX[z])) == 0))
           break;
-      C_printf("%s",translit[(unsigned char)z-0200]);
+      C_printf("%s",translit[z-0200]);
       j+=strlen(encTeX[z])-1;
     }
 @z
