@@ -9,17 +9,18 @@
 @<Include files@>@/
 size_t mbsntowcs (wchar_t *, const char *, size_t, size_t);
 extern char *encTeX[];
-int enc_lookup(wchar_t wc)
+unsigned char enc(char *p)
 {
-  int z;
+  unsigned char z;
+  wchar_t wc;
   char mb[MB_CUR_MAX];
 
-  if ((z = wctob(wc)) != EOF) return z;
-
+  mbtowc(&wc, p, MB_CUR_MAX);
+  if (iswupper(wc)) wc=towlower(wc);
   wctomb(mb, wc);
 
   for(z = 0x80; z <= 0xff; z++)
-    if (strlen(encTeX[z]) && (strncmp(mb, encTeX[z], strlen(encTeX[z])) == 0))
+    if (encTeX[z] && (strncmp(mb, encTeX[z], strlen(encTeX[z])) == 0))
       break;
 
   return z;
@@ -92,21 +93,18 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
   char scratch[longest_name*MB_LEN_MAX]; /* scratch area for section names */
 @z
 
-@x l.3752
+@x l.3753
       if (xislower(*p)) { /* not entirely uppercase */
          delim='\\'; break;
       }
 @y
-      if (xislower(*p)) { /* not entirely uppercase */
-         delim='\\'; break;
+    {
+      wchar_t wc;
+      mbtowc(&wc, p, MB_CUR_MAX);
+      if (iswlower(wc)) { /* not entirely uppercase */
+        delim='\\'; break;
       }
-      else if (ishigh(*p)) {
-          wchar_t wc;
-          mbtowc(&wc, p, MB_CUR_MAX);
-          if (iswlower(wc)) {
-            delim='\\'; break;
-          }
-        }
+    }
 @z
 
 @x l.3768
@@ -116,75 +114,65 @@ char *out_buf_end = out_buf+line_length*MB_LEN_MAX; /* end of |out_buf| */
     out(*(cur_name->byte_start + w));
 @z
 
-@x l.4379
-@<Do the first pass...@>= {
-int c;
-for (c=0; c<=255; c++) bucket[c]=NULL;
-for (h=hash; h<=hash_end; h++) {
-  next_name=*h;
-  while (next_name) {
-    cur_name=next_name; next_name=cur_name->link;
-    if (cur_name->xref!=(char*)xmem) {
-      c=(eight_bits)((cur_name->byte_start)[0]);
+@x l.4388
       if (xisupper(c)) c=tolower(c);
-      blink[cur_name-name_dir]=bucket[c]; bucket[c]=cur_name;
-    }
-  }
-}
-}
 @y
-@<Do the first pass...@>= {
-wchar_t wc;
-for (int c=0; c<=255; c++) bucket[c]=NULL;
-for (h=hash; h<=hash_end; h++) {
-  next_name=*h;
-  while (next_name) {
-    cur_name=next_name; next_name=cur_name->link;
-    if (cur_name->xref!=(char*)xmem) {
-      mbtowc(&wc,cur_name->byte_start,MB_CUR_MAX);
-      if (iswupper(wc)) wc=towlower(wc);
-      blink[cur_name-name_dir]=bucket[enc_lookup(wc)]; bucket[enc_lookup(wc)]=cur_name;
-    }
-  }
-}
-}
+      if (xisupper(c)) c=tolower(c);
+      else if (ishigh(c)) c=enc(cur_name->byte_start);
 @z
 
-@x l.4505
-  eight_bits c;
-  next_name=sort_ptr->head;
-  do {
-    cur_name=next_name; next_name=blink[cur_name-name_dir];
+Move 'ё' down next to 'е' and shift the rest of the sequence:
+
+@x l.4453
+strcpy(collate+133,"\240\241\242\243\244\245\246\247\250\251\252\253\254\255\256\257");
+/* 16 characters + 133 = 149 */
+strcpy(collate+149,"\260\261\262\263\264\265\266\267\270\271\272\273\274\275\276\277");
+/* 16 characters + 149 = 165 */
+strcpy(collate+165,"\300\301\302\303\304\305\306\307\310\311\312\313\314\315\316\317");
+/* 16 characters + 165 = 181 */
+strcpy(collate+181,"\320\321\322\323\324\325\326\327\330\331\332\333\334\335\336\337");
+/* 16 characters + 181 = 197 */
+strcpy(collate+197,"\340\341\342\343\344\345\346\347\350\351\352\353\354\355\356\357");
+/* 16 characters + 197 = 213 */
+strcpy(collate+213,"\360\361\362\363\364\365\366\367\370\371\372\373\374\375\376\377");
+@y
+strcpy(collate+133,"\240\241\242\243\244\245\361\246\247\250\251\252\253\254\255\256");
+/* 16 characters + 133 = 149 */
+strcpy(collate+149,"\257\260\261\262\263\264\265\266\267\270\271\272\273\274\275\276");
+/* 16 characters + 149 = 165 */
+strcpy(collate+165,"\277\300\301\302\303\304\305\306\307\310\311\312\313\314\315\316");
+/* 16 characters + 165 = 181 */
+strcpy(collate+181,"\317\320\321\322\323\324\325\326\327\330\331\332\333\334\335\336");
+/* 16 characters + 181 = 197 */
+strcpy(collate+197,"\337\340\341\342\343\344\345\346\347\350\351\352\353\354\355\356");
+/* 16 characters + 197 = 213 */
+strcpy(collate+213,"\357\360\362\363\364\365\366\367\370\371\372\373\374\375\376\377");
+@z
+
+@x l.4509
     cur_byte=cur_name->byte_start+cur_depth;
     if (cur_byte==(cur_name+1)->byte_start) c=0; /* hit end of the name */
     else {
       c=(eight_bits) *cur_byte;
       if (xisupper(c)) c=tolower(c);
-    }
-  blink[cur_name-name_dir]=bucket[c]; bucket[c]=cur_name;
 @y
-  wchar_t wc;
-  next_name=sort_ptr->head;
-  do {
-    cur_name=next_name; next_name=blink[cur_name-name_dir];
     cur_byte=cur_name->byte_start;
     for (int w = 0; w < cur_depth; w++)
       cur_byte+=mblen(cur_byte,MB_CUR_MAX);
-    if (cur_byte==(cur_name+1)->byte_start) wc=0; /* hit end of the name */
+    if (cur_byte==(cur_name+1)->byte_start) c=0; /* hit end of the name */
     else {
-      mbtowc(&wc,cur_byte,MB_CUR_MAX);
-      if (iswupper(wc)) wc=towlower(wc);
-    }
-  blink[cur_name-name_dir]=bucket[enc_lookup(wc)]; bucket[enc_lookup(wc)]=cur_name;
+      c=(eight_bits) *cur_byte;
+      if (xisupper(c)) c=tolower(c);
+      else if (ishigh(c)) c=enc(cur_byte);
 @z
 
 @x l.4536
+      for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++)
         if (xislower(*j)) goto lowcase;
 @y
-        if (xislower(*j)) goto lowcase;
-        else if (ishigh(*j)) {
-          wchar_t wc;
-          mbtowc(&wc, j, MB_CUR_MAX);
-          if (iswlower(wc)) goto lowcase;
-        }
+      for (j=cur_name->byte_start;j<(cur_name+1)->byte_start;j++) {
+        wchar_t wc;
+        mbtowc(&wc, j, MB_CUR_MAX);
+        if (iswlower(wc)) goto lowcase;
+      }
 @z
